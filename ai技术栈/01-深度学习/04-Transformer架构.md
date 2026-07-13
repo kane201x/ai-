@@ -176,11 +176,17 @@ class TransformerEncoderBlock(nn.Module):
 
 ```mermaid
 graph LR
-    subgraph Post-LN (原始)
-    A[x] --> LN[LayerNorm] --> ATTN[Attention] --> ADD[x + ATTN] --> OUT
+    subgraph "Post-LN (原始)"
+        A[输入x] --> LN[LayerNorm] 
+        LN --> ATTN[Attention] 
+        ATTN --> ADD[残差相加：x + ATTN] 
+        ADD --> OUT[输出]
     end
-    subgraph Pre-LN (现代)
-    B[x] --> ATTN2[Attention] --> ADD2[x + ATTN2] --> LN2[LayerNorm] --> OUT2
+    subgraph "Pre-LN (现代)"
+        B[输入x] --> ATTN2[Attention] 
+        ATTN2 --> ADD2[残差相加：x + ATTN2] 
+        ADD2 --> LN2[LayerNorm] 
+        LN2 --> OUT2[输出]
     end
     style LN fill:#f96
     style LN2 fill:#4a9
